@@ -130,3 +130,7 @@ Route::get('/user/pivot', function () {
         echo $role->pivot->created_at;
     }
 });
+
+Route::get('/user/{id}/country',  function ($id){
+    
+});
