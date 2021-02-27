@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Country;
+use App\Models\Photo;
+use App\Models\Tag;
+use App\Models\Video;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,5 +137,44 @@ Route::get('/user/pivot', function () {
 });
 
 Route::get('/user/{id}/country',  function ($id){
-    
+    $country = Country::find($id);
+
+    foreach($country->posts as $post){
+        echo $post;
+    }
+});
+
+
+Route::get('/user/photos', function(){
+    $user = User::find(1);
+    foreach($user->photos as $photo){
+        return $photo;
+    }
+});
+
+Route::get('/post/photos', function(){
+    $post = Post::find(1);
+    foreach($post->photos as $photo){
+        echo $photo->path. '<br>';
+    }
+});
+
+Route::get('/photo/{id}/post', function ($id) {
+    $photo = Photo::findOrFail($id);
+    return $photo->imageable;
+});
+
+
+Route::get('/post/tag', function () {
+    $post = Post::find(1);
+    foreach($post->tags as $tag){
+        echo $tag->name;
+    }
+});
+
+Route::get('/tag/post', function () {
+    $tag = Tag::find(2);
+    foreach($tag->posts as $post){
+        echo $post->title;
+    }
 });
