@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -11,9 +12,10 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        return "It's working!! The number is ". $id;
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -23,7 +25,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return "I am the method that create stuff";
+        return view('posts.create');
     }
 
     /**
@@ -34,7 +36,18 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //One way to persist data
+        Post::create($request->all());
+
+        //Other way
+        // $input = $request->all();
+        // Post::create($request->all()); 
+
+        //Other
+        // $post = new Post;
+        // $post->title = $request->title;
+        // $post->save();
+        return redirect('/posts');
     }
 
     /**
@@ -45,7 +58,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return "This is the show method". $id;
+        $post = Post::findOrFail($id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -56,7 +70,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -68,7 +83,9 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id); 
+        $post->update($request->all());
+        return redirect('posts');
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -44,17 +45,17 @@ use App\Models\Video;
 // Route::get('post/{id}', '\App\Http\Controllers\PostsController@show_post');
 
 
-Route::get('/insert', function () {
-    DB::insert('insert into posts(title, content) values (?, ?)', ['lçkajdfçlkjadsfçl', 'nlcnv,nfjngjorg']);
-});
+// Route::get('/insert', function () {
+//     DB::insert('insert into posts(title, content) values (?, ?)', ['lçkajdfçlkjadsfçl', 'nlcnv,nfjngjorg']);
+// });
 
-Route::get('/insertmany', function () {
-    DB::insert('insert into users(name, email, password) values (?, ?, ?)', ['Rafael Pinto', 'rafael@gmail.com',  '123123']);
-    DB::insert('insert into users(name, email, password) values (?, ?, ?)', ['Genivaldo Vieira', 'genivaldo@gmail.com',  '123123']);
-    DB::insert('insert into posts(title, user_id, content) values (?, ?, ?)', ['O que é spring boot', 1,  'Tudo sobre Java Spring Boot']);
-    DB::insert('insert into posts(title, user_id, content) values (?, ?, ?)', ['PHP e Laravel são muito bons', 1,  'É isso ai']);
+// Route::get('/insertmany', function () {
+//     DB::insert('insert into users(name, email, password) values (?, ?, ?)', ['Rafael Pinto', 'rafael@gmail.com',  '123123']);
+//     DB::insert('insert into users(name, email, password) values (?, ?, ?)', ['Genivaldo Vieira', 'genivaldo@gmail.com',  '123123']);
+//     DB::insert('insert into posts(title, user_id, content) values (?, ?, ?)', ['O que é spring boot', 1,  'Tudo sobre Java Spring Boot']);
+//     DB::insert('insert into posts(title, user_id, content) values (?, ?, ?)', ['PHP e Laravel são muito bons', 1,  'É isso ai']);
     
-});
+// });
 
 // Route::get('/read', function () {
 //     $results = DB::select('select * from posts where id = ?', [1]);
@@ -116,65 +117,70 @@ Route::get('/insertmany', function () {
 //     return Post::find($id)->user->name;
 // });0
 
-Route::get('/posts/{id}', function ($id) {
-    $user = User::find($id);
-    foreach($user->posts as $post){
-        echo $post->content. '<br>';
-    }
-});
+// Route::get('/posts/{id}', function ($id) {
+//     $user = User::find($id);
+//     foreach($user->posts as $post){
+//         echo $post->content. '<br>';
+//     }
+// });
 
 
-Route::get('/user/{id}/role', function($id) {
-   return User::find($id)->roles()/*->orderBy('id', 'desc')*/->get();
-});
+// Route::get('/user/{id}/role', function($id) {
+//    return User::find($id)->roles()/*->orderBy('id', 'desc')*/->get();
+// });
 
 
-Route::get('/user/pivot', function () {
-    $user = User::find(1);
-    foreach($user->roles as $role) {
-        echo $role->pivot->created_at;
-    }
-});
+// Route::get('/user/pivot', function () {
+//     $user = User::find(1);
+//     foreach($user->roles as $role) {
+//         echo $role->pivot->created_at;
+//     }
+// });
 
-Route::get('/user/{id}/country',  function ($id){
-    $country = Country::find($id);
+// Route::get('/user/{id}/country',  function ($id){
+//     $country = Country::find($id);
 
-    foreach($country->posts as $post){
-        echo $post;
-    }
-});
-
-
-Route::get('/user/photos', function(){
-    $user = User::find(1);
-    foreach($user->photos as $photo){
-        return $photo;
-    }
-});
-
-Route::get('/post/photos', function(){
-    $post = Post::find(1);
-    foreach($post->photos as $photo){
-        echo $photo->path. '<br>';
-    }
-});
-
-Route::get('/photo/{id}/post', function ($id) {
-    $photo = Photo::findOrFail($id);
-    return $photo->imageable;
-});
+//     foreach($country->posts as $post){
+//         echo $post;
+//     }
+// });
 
 
-Route::get('/post/tag', function () {
-    $post = Post::find(1);
-    foreach($post->tags as $tag){
-        echo $tag->name;
-    }
-});
+// Route::get('/user/photos', function(){
+//     $user = User::find(1);
+//     foreach($user->photos as $photo){
+//         return $photo;
+//     }
+// });
 
-Route::get('/tag/post', function () {
-    $tag = Tag::find(2);
-    foreach($tag->posts as $post){
-        echo $post->title;
-    }
-});
+// Route::get('/post/photos', function(){
+//     $post = Post::find(1);
+//     foreach($post->photos as $photo){
+//         echo $photo->path. '<br>';
+//     }
+// });
+
+// Route::get('/photo/{id}/post', function ($id) {
+//     $photo = Photo::findOrFail($id);
+//     return $photo->imageable;
+// });
+
+
+// Route::get('/post/tag', function () {
+//     $post = Post::find(1);
+//     foreach($post->tags as $tag){
+//         echo $tag->name;
+//     }
+// });
+
+// Route::get('/tag/post', function () {
+//     $tag = Tag::find(2);
+//     foreach($tag->posts as $post){
+//         echo $post->title;
+//     }
+// });
+
+
+// Crud application
+
+Route::resource('/posts', 'App\Http\Controllers\PostsController');
