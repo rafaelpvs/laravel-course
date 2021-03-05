@@ -85,7 +85,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id); 
         $post->update($request->all());
-        return redirect('posts');
+        return redirect('/posts');
     }
 
     /**
@@ -97,6 +97,9 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::whereId($id)->delete();
+        
+        return redirect('/posts');
     }
 
     public function contact(){

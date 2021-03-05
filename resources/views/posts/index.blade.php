@@ -5,4 +5,7 @@
         <li><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></li>
        @endforeach
     </ul>
-@endsection('footer')
+    <form action="/posts/create" method="get">
+        <input type="submit" value="CREATE">
+    </form>
+@endsection
