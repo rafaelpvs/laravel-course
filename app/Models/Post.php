@@ -10,16 +10,14 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    public $directory = "/images/";
     // protected $table = 'posts';
 
     // protected $primaryKey = 'id';
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = [
-        'title',
-        'content'
-    ];
+    protected $fillable = ['title', 'content', 'path'];
 
 
     
@@ -35,5 +33,8 @@ class Post extends Model
 
     public function tags() {
         return $this->morphToMany('App\Models\Tag', 'taggable');
+    }
+    public function getPathAttribute($value) {
+        return $this->directory. $value;
     }
 }

@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -63,5 +65,20 @@ class User extends Authenticatable
         return $this->morphMany('App\Models\Photo', 'imageable');
     }
 
+    public function getNameAttribute($value) {
+        return strtoupper($value);
+    }
+
+    public function setNameAttribute($value) {
+        $this->attributes['name'] = strtoupper($value);
+    }
+
+    public static function scopeLatest($query) {
+        echo 'entrou na função escopo';
+        return $query->orderBy('id', 'asc');
+    }
+
+
+    
     
 }
